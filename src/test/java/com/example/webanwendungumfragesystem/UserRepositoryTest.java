@@ -1,8 +1,9 @@
 package com.example.webanwendungumfragesystem;
 
 
+import com.example.webanwendungumfragesystem.model.Survey;
 import com.example.webanwendungumfragesystem.model.User;
-import com.example.webanwendungumfragesystem.repository.UserRepository;
+import com.example.webanwendungumfragesystem.repository.SurveyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,9 +22,12 @@ public class UserRepositoryTest {
     private TestEntityManager entityManager;
 
     @Autowired
-    private UserRepository repo;
+    private SurveyRepository surveyRepository;
 
+    //@Autowired
+    //private UserRepository repo;
 
+/*
     @Test
     public void testCreateUser() {
         User user = new User();
@@ -35,5 +39,24 @@ public class UserRepositoryTest {
         User savedUser = repo.save(user);
         User existUser = entityManager.find(User.class,savedUser.getId());
         assertThat(user.getEmail()).isEqualTo((existUser.getEmail()));
+    }
+
+ */
+
+    @Test
+    public void testCreateSurvey(){
+        Survey survey = new Survey();
+        survey.setAnswer1(true);
+        survey.setOption1("Test frage");
+        survey.setCustom("hallllooo");
+        survey.setHostMessage("asdasd");
+        survey.addParticipant("@asd");
+        survey.addParticipant("@sdddddd");
+
+
+        Survey savedSurvey = surveyRepository.save(survey);
+        Survey existSurvey = entityManager.find(Survey.class,savedSurvey.getId());
+        assertThat(survey.getCustom()).isEqualTo((existSurvey.getCustom()));
+        assertThat(survey.getParticipants()).isEqualTo((existSurvey.getParticipants()));
     }
 }

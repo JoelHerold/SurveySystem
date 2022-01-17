@@ -1,7 +1,9 @@
 package com.example.webanwendungumfragesystem.controller;
 
 
+import com.example.webanwendungumfragesystem.model.Survey;
 import com.example.webanwendungumfragesystem.model.User;
+import com.example.webanwendungumfragesystem.repository.SurveyRepository;
 import com.example.webanwendungumfragesystem.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class UserController {
 
+    @Autowired
+    SurveyRepository surveyRepository;
     @Autowired
     private UserRepository userRepository;
 

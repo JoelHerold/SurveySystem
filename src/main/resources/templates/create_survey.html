@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>create_survey</title>
+</head>
+<body>
+<h1>umfrage Erstellennnnnn</h1>
+
+<h1 th:object="${survey}"></h1>
+<form th:action="@{/creating_survey}" th:object="${survey}" method="post">
+    <div>
+        <label>Question</label>
+        <input type="text" th:field="*{question}" placeholder="type in your question" >
+    </div>
+    <div>
+        <label>Answer1</label>
+        <input type="text" th:field="*{option1}" placeholder="option" >
+    </div>
+    <div>
+        <label>Answer2</label>
+        <input type="text" th:field="*{option2}" placeholder="option" >
+    </div>
+    <div>
+        <label>Answer3</label>
+        <input type="text" th:field="*{option3}" placeholder="option" >
+    </div>
+    <div>
+        <label>Answer4</label>
+        <input type="text" th:field="*{option4}" placeholder="option" >
+    </div>
+
+    <div>
+        <label>Sonstiges</label>
+        <input type="text" th:field="*{custom}" placeholder="sonstige bemerkung" >
+    </div>
+
+    <div>
+        <label>Nachricht an alle Teilnehmer</label>
+        <input type="text" th:field="*{hostMessage}" placeholder="nachricht" >
+    </div>
+
+    <input type="submit" value="Erstellen">
+</form>
+</body>
+</html>

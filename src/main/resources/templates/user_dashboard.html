@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>Logged innnnn</h1>
+<h1>User Dashboard</h1>
+<a th:href="@{/create_survey}" class="button">Umfrage Erstellen</a>
+<a th:href="@{/allSurveys}" class="button">Meine Umfragen</a>
 </body>
 </html>

@@ -6,7 +6,10 @@ import com.example.webanwendungumfragesystem.model.User;
 import com.example.webanwendungumfragesystem.repository.SurveyRepository;
 import com.example.webanwendungumfragesystem.repository.UserRepository;
 
+import com.example.webanwendungumfragesystem.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +20,8 @@ import java.util.List;
 
 @Controller
 public class UserController {
-
+    @Autowired
+    AnswerService answerService;
     @Autowired
     SurveyRepository surveyRepository;
     @Autowired
@@ -43,8 +47,8 @@ public class UserController {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodePassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodePassword);
-
             userRepository.save(user);
+
             return "registered";
      //   }else{
       //      return "register_page";
@@ -54,6 +58,10 @@ public class UserController {
 
     @GetMapping("/user_dashboard")
     public String userDashboard (Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        model.addAttribute("test",currentPrincipalName);
+        answerService.setCurrentUser();
         return"user_dashboard";
     }
 

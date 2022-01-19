@@ -10,6 +10,10 @@
 <h1 th:object="${survey}"></h1>
 <form th:action="@{/creating_survey}" th:object="${survey}" method="post">
     <div>
+        <label>Umfrage Namen</label>
+        <input type="text" th:field="*{surveyName}" placeholder="type in your Survey question" >
+    </div>
+    <div>
         <label>Question</label>
         <input type="text" th:field="*{question}" placeholder="type in your question" >
     </div>

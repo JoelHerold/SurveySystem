@@ -1,8 +1,10 @@
 package com.example.webanwendungumfragesystem;
 
 
+import com.example.webanwendungumfragesystem.model.Answer;
 import com.example.webanwendungumfragesystem.model.Survey;
 import com.example.webanwendungumfragesystem.model.User;
+import com.example.webanwendungumfragesystem.repository.AnswerRepository;
 import com.example.webanwendungumfragesystem.repository.SurveyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,22 @@ public class UserRepositoryTest {
     private TestEntityManager entityManager;
 
     @Autowired
+    private AnswerRepository repo;
+    @Autowired
     private SurveyRepository surveyRepository;
 
     //@Autowired
     //private UserRepository repo;
+    @Test
+    public void testCreateUser() {
+        Answer answer = new Answer();
+        answer.setAnswer1(true);
 
+        Answer savedanswer = repo.save(answer);
+        Answer existanswer = entityManager.find(Answer.class, savedanswer.getId());
+
+        assertThat(answer.isAnswer1()).isEqualTo(existanswer.isAnswer1());
+    }
 /*
     @Test
     public void testCreateUser() {
@@ -41,22 +54,24 @@ public class UserRepositoryTest {
         assertThat(user.getEmail()).isEqualTo((existUser.getEmail()));
     }
 
- */
+
 
     @Test
     public void testCreateSurvey(){
         Survey survey = new Survey();
-        survey.setAnswer1(true);
+        //survey.setAnswer1(true);
         survey.setOption1("Test frage");
         survey.setCustom("hallllooo");
         survey.setHostMessage("asdasd");
-        survey.addParticipant("@asd");
-        survey.addParticipant("@sdddddd");
+       // survey.addParticipant("@asd");
+       // survey.addParticipant("@sdddddd");
 
 
         Survey savedSurvey = surveyRepository.save(survey);
         Survey existSurvey = entityManager.find(Survey.class,savedSurvey.getId());
         assertThat(survey.getCustom()).isEqualTo((existSurvey.getCustom()));
-        assertThat(survey.getParticipants()).isEqualTo((existSurvey.getParticipants()));
+       // assertThat(survey.getParticipants()).isEqualTo((existSurvey.getParticipants()));
     }
+
+ */
 }

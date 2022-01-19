@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<form th:action="@{/addingSurvey}"  method="post">
+    <input type="text" th:value="${surveyId}" name="sourceText"/>
+    <input type="submit" />
+</form>
+
+</body>
+</html>

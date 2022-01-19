@@ -19,8 +19,10 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-     @Column
-     private String question;
+    @Column(nullable = false)
+    private String surveyName;
+    @Column
+    private String question;
     @Column()
     private String option1;
     @Column()
@@ -31,23 +33,15 @@ public class Survey {
     private String option4;
 
     @Column()
-    private boolean answer1;
-
-    @Column()
-    private boolean answer2;
-
-    @Column()
-    private boolean answer3;
-
-    @Column()
-    private boolean answer4;
-
-    @Column()
     private String custom;
 
     @Column()
     private String hostMessage;
 
+    @OneToMany
+    @CollectionTable(name = "given_answers", joinColumns = @JoinColumn(name = "id"))
+    private List<Answer> givenAnswers = new ArrayList<>();
+/*
     @OneToOne
     @JoinColumn
     private User host;
@@ -66,26 +60,20 @@ public class Survey {
     public void addParticipant(String email) {
         participants.add(email);
     }
-
- */
+*/
 
     @Override
     public String toString() {
         return "Survey{" +
                 "id=" + id +
+                ", surveyName='" + surveyName + '\'' +
                 ", question='" + question + '\'' +
                 ", option1='" + option1 + '\'' +
                 ", option2='" + option2 + '\'' +
                 ", option3='" + option3 + '\'' +
                 ", option4='" + option4 + '\'' +
-                ", answer1=" + answer1 +
-                ", answer2=" + answer2 +
-                ", answer3=" + answer3 +
-                ", answer4=" + answer4 +
                 ", custom='" + custom + '\'' +
                 ", hostMessage='" + hostMessage + '\'' +
-                ", host=" + host +
-                //", participants=" + participants +
                 '}';
     }
 }

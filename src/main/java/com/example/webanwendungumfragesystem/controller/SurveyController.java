@@ -45,6 +45,7 @@ public class SurveyController {
     }
 
     @GetMapping(value = "/allSurveys", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public List<Survey> showAllSurveys(Model model){
         User currentUser = userRepository.findByEmail( answerService.getCurrentUser());
         List<Survey> allSurveys =surveyRepository.findAll();
@@ -53,6 +54,11 @@ public class SurveyController {
 
 
         return allSurveys;
+    }
+
+    @GetMapping("/allSurvey")
+    public String testt(){
+        return"/allSurvey";
     }
 
 

@@ -116,9 +116,10 @@
         document.getElementById('text').value = option.text;
         selected = option.value;
         //return option.value;
+        //document.getElementById("start").innerText = selected;
     }
 
-    update();
+   // update();
 
     function learnOptions(){
         let text ="";
@@ -144,7 +145,7 @@
                 questionList.push(myObj[x])
             }
         }
-        document.getElementById("start").innerText = "hallo";
+        document.getElementById("start").innerText = selected;
 
     }
 

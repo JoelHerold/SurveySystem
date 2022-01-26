@@ -145,9 +145,25 @@
                 questionList.push(myObj[x])
             }
         }
-        document.getElementById("start").innerText = selected;
-
+       // document.getElementById("start").innerText = questionList;
+        gameloop();
     }
+
+    function gameloop(){
+        let text = ""
+        text = "<table border='1'>"
+        text += "<thead><td>" + "Frage" + "</td>" + "<td>" + "Antwort" + "</td></thead>"
+
+        for(let x in questionList){
+           text+= "<tr><td>" + questionList[x].question + "</td></tr>";
+        }
+
+        text += "</table>"
+        document.getElementById("start").innerHTML = text;
+    }
+
+
+
 
 
 

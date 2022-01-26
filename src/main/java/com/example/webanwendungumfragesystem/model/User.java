@@ -32,7 +32,7 @@ public class User {
 
     @Column(name="lastName",nullable = false)
     private String lastName;
-
+/*
     @OneToMany
     @CollectionTable(name = "active_surveys ", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "actSurv", nullable = false)
@@ -41,7 +41,7 @@ public class User {
     public void addSurvey(Survey survey){
         activeSurveys.add(survey);
     }
-
+*/
     @Override
     public String toString() {
         return "User{" +
@@ -50,7 +50,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", activeSurveys=" + activeSurveys +
+
                 '}';
     }
 }

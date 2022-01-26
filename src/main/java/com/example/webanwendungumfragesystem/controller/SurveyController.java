@@ -1,11 +1,12 @@
 package com.example.webanwendungumfragesystem.controller;
 
-import com.example.webanwendungumfragesystem.model.Answer;
+
 import com.example.webanwendungumfragesystem.model.Survey;
 import com.example.webanwendungumfragesystem.model.User;
 import com.example.webanwendungumfragesystem.repository.SurveyRepository;
 import com.example.webanwendungumfragesystem.repository.UserRepository;
-import com.example.webanwendungumfragesystem.service.AnswerService;
+
+import com.example.webanwendungumfragesystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ public class SurveyController {
 
 
     @Autowired
-    AnswerService answerService;
+    UserService userService;
 
     @Autowired
     UserRepository userRepository;
@@ -28,21 +29,44 @@ public class SurveyController {
     @Autowired
     SurveyRepository surveyRepository;
 
+
+
+
+    @PostMapping("/add_survey")
+    public String addSurvey(Survey survey){
+        surveyRepository.save(survey);
+        return "user_dashboard";
+    }
+    @GetMapping("/create_survey")
+    public String registerPage(Model model){
+        model.addAttribute("survey", new Survey());
+        return "create_survey";
+    }
+
+    @GetMapping(value = "/all_survey", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Survey> showAllSurveys(Model model){
+        User currentUser = userRepository.findByEmail( userService.getCurrentUser());
+        List<Survey> allSurveys =surveyRepository.findAll();
+        //model.addAttribute("surveys",allSurveys);
+        //model.addAttribute("user", currentUser);
+
+
+        return allSurveys;
+    }
+ /*
+
     @PostMapping ("/creating_survey")
     public String createSurvey(Survey survey){
         surveyRepository.save(survey);
-        answerService.getCurrentUser();
+        userService.getCurrentUser();
         // alle User einfügen immer wenn eine Umfrag gestellt wird bekommen alle user diese damit ich später in survey Controller darauf zugreifen kann
         List<User> allUsers = userRepository.findAll();
        //for()
         return "user_dashboard";
     }
 
-    @GetMapping("/create_survey")
-    public String registerPage(Model model){
-        model.addAttribute("survey", new Survey());
-        return "create_survey";
-    }
+
 
     @GetMapping(value = "/allSurveys", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

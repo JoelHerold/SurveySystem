@@ -5,8 +5,7 @@ import com.example.webanwendungumfragesystem.model.Survey;
 import com.example.webanwendungumfragesystem.model.User;
 import com.example.webanwendungumfragesystem.repository.SurveyRepository;
 import com.example.webanwendungumfragesystem.repository.UserRepository;
-
-import com.example.webanwendungumfragesystem.service.AnswerService;
+import com.example.webanwendungumfragesystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +20,7 @@ import java.util.List;
 @Controller
 public class UserController {
     @Autowired
-    AnswerService answerService;
+    UserService userService;
     @Autowired
     SurveyRepository surveyRepository;
     @Autowired
@@ -61,7 +60,8 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         model.addAttribute("test",currentPrincipalName);
-        answerService.setCurrentUser();
+        model.addAttribute("survey",new Survey());
+        userService.setCurrentUser();
         return"user_dashboard";
     }
 

@@ -1,3 +1,4 @@
+/*
 package com.example.webanwendungumfragesystem.service;
 
 import org.springframework.security.core.Authentication;
@@ -19,3 +20,4 @@ public class AnswerService {
 
 }
 }
+*/

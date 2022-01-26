@@ -24,27 +24,8 @@ public class Survey {
     @Column
     private String question;
     @Column()
-    private String option1;
-    @Column()
-    private String option2;
-    @Column()
-    private String option3;
-    @Column()
-    private String option4;
+    private String answer;
 
-    @Column()
-    private String custom;
-
-    @Column()
-    private String hostMessage;
-
-    @OneToMany
-    @CollectionTable(name = "given_answers", joinColumns = @JoinColumn(name = "id"))
-    private List<Answer> givenAnswers = new ArrayList<>();
-/*
-    @OneToOne
-    @JoinColumn
-    private User host;
 
 
 /*
@@ -68,12 +49,7 @@ public class Survey {
                 "id=" + id +
                 ", surveyName='" + surveyName + '\'' +
                 ", question='" + question + '\'' +
-                ", option1='" + option1 + '\'' +
-                ", option2='" + option2 + '\'' +
-                ", option3='" + option3 + '\'' +
-                ", option4='" + option4 + '\'' +
-                ", custom='" + custom + '\'' +
-                ", hostMessage='" + hostMessage + '\'' +
+                ", answer='" + answer + '\'' +
                 '}';
     }
 }

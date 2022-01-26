@@ -1,10 +1,10 @@
 package com.example.webanwendungumfragesystem;
 
 
-import com.example.webanwendungumfragesystem.model.Answer;
+//import com.example.webanwendungumfragesystem.model.Answer;
 import com.example.webanwendungumfragesystem.model.Survey;
 import com.example.webanwendungumfragesystem.model.User;
-import com.example.webanwendungumfragesystem.repository.AnswerRepository;
+//import com.example.webanwendungumfragesystem.repository.AnswerRepository;
 import com.example.webanwendungumfragesystem.repository.SurveyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Rollback(false)
 public class UserRepositoryTest {
 
+    /*
     @Autowired
     private TestEntityManager entityManager;
 

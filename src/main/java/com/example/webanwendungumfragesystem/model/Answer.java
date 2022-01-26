@@ -1,3 +1,5 @@
+
+/*
 package com.example.webanwendungumfragesystem.model;
 
 import lombok.Getter;
@@ -79,3 +81,4 @@ public class Answer {
         this.answer4 = answer4;
     }
 }
+*/

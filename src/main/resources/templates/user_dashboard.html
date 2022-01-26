@@ -3,12 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
 </head>
 <body>
 <h1>User Dashboard</h1>
 <a th:href="@{/create_survey}" class="button">Umfrage Erstellen</a>
-<a th:href="@{/allSurveys}" class="button">Meine Umfragen</a>
+<a th:href="@{/all_survey}" class="button">Meine Umfragen</a>
 <a th:href="@{/answer}" class="button">Beantworten</a>
 <h1 th:text="${test}"></h1>
+
+<button type="button" onclick="loadDocTable()">Meine Topics</button>
+<div id="demo">
+
+</div>
+<button  type="button" onclick="loadDocDrop()">Meine Stacks</button>
+<div id="drop" class="dropdown">
+
+
+</div>
+
+<div id='options'>
+
+</div>
+
+<div id="start">
+
+</div>
+
+<script>
+
+    //const dbParam = JSON.stringify({table:"customers",limit:20});
+    let myObj = null;
+    let count=0;
+    var sortObj = []
+
+    function loadDocTable() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            myObj = JSON.parse(this.responseText);
+
+            filltable()
+        }
+        xhttp.open("GET", "/all_survey");
+        xhttp.send();
+        //xhttp.send("x=" + dbParam);
+        count=0;
+    }
+
+    function loadDocDrop() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            myObj = JSON.parse(this.responseText);
+
+            fillDropDown();
+        }
+        xhttp.open("GET", "/all_survey");
+        xhttp.send();
+        //xhttp.send("x=" + dbParam);
+        count=0;
+    }
+    // noch implementieren
+    function onDelete(y){
+
+        document.getElementById("demo").innerHTML = y;
+
+    }
+
+    function filltable(){
+        //const myObj = JSON.parse(this.responseText);
+        let text = "<table border='5'>"
+        text += "<thead><td>" + "Thema" + "</td>" + "<td>" + "Frage" + "</td><td>" + "Antwort" + "</td></thead>"
+
+        for (let x in myObj) {
+
+            text += "<tr><td>" + myObj[x].surveyName + "</td>" + "<td>" + myObj[x].question + "</td>" + "<td>" + myObj[x].answer + "</td>" + ' <td><button onclick="onDelete(count)">Delete</button></td>' + "</tr>";
+            count++;
+        }
+        text += "</table>"
+        document.getElementById("demo").innerHTML = text;
+
+    }
+
+    function fillDropDown(){
+
+
+        for(let x in myObj){
+            sortObj.push(myObj[x].surveyName);
+        }
+        sortObj=_.uniq(sortObj);
+        let text ="<select id='dropMenu' name='drop' onchange='update()'>";
+        text +=  "<option onclick='update()'>Random</option>"
+        for (let x in sortObj) {
+            text +=  "<option onclick='update()'>"+sortObj[x]+"</option>"
+        }
+        text+="</select>"
+        text+= "<input type='text' id='value'>";
+        text+= "<input type='text' id='text'>"
+        text+= "<button  onClick='learnOptions()'>Optionen</button>"
+
+
+        document.getElementById("drop").innerHTML = text;
+
+    }
+
+    var selected ="";
+
+    function update() {
+        var select = document.getElementById('dropMenu');
+        var option = select.options[select.selectedIndex];
+
+        document.getElementById('value').value = option.value;
+        document.getElementById('text').value = option.text;
+        selected = option.value;
+        //return option.value;
+    }
+
+    update();
+
+    function learnOptions(){
+        let text ="";
+
+        text+="<input type='radio' id='radio1'>"
+        text+="<label for ='radio1'>Shuffel</label>"
+        text+="<br>"
+        text+="<input type='radio' id='radio2'>"
+        text+="<label for ='radio2'>twice</label>"
+        text+="<br>"
+        text+="<input type='radio' id='radio3'>"
+        text+="<label for ='radio3'>repeat</label>"
+        text+="<br>"
+        text+= "<button  onClick='makeStackList()'>GO</button>"
+
+        document.getElementById('options').innerHTML = text;
+    }
+    var questionList=[];
+    function makeStackList(){
+
+        for(let x in myObj){
+            if(myObj[x].surveyName===selected){
+                questionList.push(myObj[x])
+            }
+        }
+        document.getElementById("start").innerText = "hallo";
+
+    }
+
+
+
+
+
+
+
+</script>
+
+<!--
+
+klappt mit dropdown und filter
+
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+</head>
+<body>
+<h1>User Dashboard</h1>
+<a th:href="@{/create_survey}" class="button">Umfrage Erstellen</a>
+<a th:href="@{/all_survey}" class="button">Meine Umfragen</a>
+<a th:href="@{/answer}" class="button">Beantworten</a>
+<h1 th:text="${test}"></h1>
+
+<button type="button" onclick="loadDoc()">Meine Topics</button>
+<div id="demo">
+
+</div>
+
+<div id="drop" class="dropdown">
+   <select name="drop" onclick="fillDropDown()">
+
+   </select>
+</div>
+
+
+
+<script>
+
+    //const dbParam = JSON.stringify({table:"customers",limit:20});
+    let myObj = null;
+    let count=0;
+    var sortObj = []
+    function loadDoc() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            myObj = JSON.parse(this.responseText);
+            //const myObj = JSON.parse(this.responseText);
+            let text = "<table border='5'>"
+            text += "<thead><td>" + "Thema" + "</td>" + "<td>" + "Frage" + "</td><td>" + "Antwort" + "</td></thead>"
+
+            for (let x in myObj) {
+
+                text += "<tr><td>" + myObj[x].surveyName + "</td>" + "<td>" + myObj[x].question + "</td>" + "<td>" + myObj[x].answer + "</td>" + ' <td><button onclick="onDelete(count)">Delete</button></td>' + "</tr>";
+            count++;
+            }
+            text += "</table>"
+            document.getElementById("demo").innerHTML = text;
+        }
+        xhttp.open("GET", "/all_survey");
+        xhttp.send();
+        //xhttp.send("x=" + dbParam);
+        count=0;
+    }
+    // noch implementieren
+    function onDelete(y){
+
+        document.getElementById("demo").innerHTML = y;
+
+    }
+
+    function fillDropDown(){
+
+
+        for(let x in myObj){
+            sortObj.push(myObj[x].surveyName);
+        }
+        sortObj=_.uniq(sortObj);
+        let text ="";
+
+
+
+
+
+        for (let x in sortObj) {
+            text +=  "<option>"+sortObj[x]+"</option>"
+        }
+        //text+="</select>"
+
+        document.getElementById("drop").innerHTML = text;
+
+    }
+
+
+</script>
+  -->
+
+    <!--
+    klappt
+    var myObj
+    function loadDoc() {
+        var data;
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function() {
+            data = this.responseText;
+
+
+            myObj = JSON.parse(this.responseText);
+            document.getElementById("demo").innerHTML = myObj[0].question;
+
+        }
+
+        xhttp.open("GET", "/all_survey", true);
+        xhttp.send();
+    }
+
+   -->
+
+
+
+
+</script>
+
+
+<!--
+<script>
+    function sendSurvey(){
+
+        var name = $('#name').val();
+        var question = $('#question').val();
+$.ajax({
+    type: 'POST',
+    url: '/addSurvey',
+    data: { name: name, question: question },
+    success: function(result) {
+
+    }
+})};</script>
+
+
+
+
+
+
+<form action="@{/addSurvey}" th:object="${survey}" method="post">
+<div>
+    <label>Umfrage Namen</label>
+    <input type="text" th:field="*{surveyName}" placeholder="type in the Survey name" >
+</div>
+<div>
+    <label>Umfrage Namen</label>
+    <input type="text" th:field="*{question}" placeholder="type in your question" >
+</div>
+<div>
+    <label>Umfrage Namen</label>
+    <input type="text" th:field="*{answer}" placeholder="type in your answer" >
+</div>
+    <div id="demo">
+        <h2>Let AJAX change this text</h2>
+        <button type="button" onclick="loadDoc()">Change Content</button>
+    </div>
+</form>
+
+
+
+<script>
+    function loadDoc() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementById("demo").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", "/addSurvey", true);
+        xhttp.send();
+    }
+</script>
+-->
+
 </body>
 </html>

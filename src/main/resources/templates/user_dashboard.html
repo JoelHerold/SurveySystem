@@ -152,14 +152,30 @@
     function gameloop(){
         let text = ""
         text = "<table border='1'>"
-        text += "<thead><td>" + "Frage" + "</td>" + "<td>" + "Antwort" + "</td></thead>"
-
+        text += "<thead><td>" + "Frage" + "</td>" + "<td>" + "Yes" + "</td></thead>"
+        var counterId =0;
         for(let x in questionList){
-           text+= "<tr><td>" + questionList[x].question + "</td></tr>";
+           text+= "<tr><td>" + questionList[x].question + "</td><td>"+"<input type='radio' id='"+counterId+"' value='test'>"+"</td></tr>";
+            counterId++
         }
 
         text += "</table>"
+        text+= "<button onclick='checkRadio()'>GO</button>"
         document.getElementById("start").innerHTML = text;
+    }
+
+    function checkRadio(){
+        let counter = 0;
+        for (let i = 0; i < questionList.length; i++) {
+            if (document.getElementById(i.toString()).checked) {
+                counter++;
+            }
+        }
+
+        document.getElementById("start").innerHTML=counter;
+
+
+
     }
 
 

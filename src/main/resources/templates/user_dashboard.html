@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 </head>
 <body>
 <h1>User Dashboard</h1>
@@ -29,12 +30,13 @@
 <div id="start">
 
 </div>
-
+<div style="width:60%;">
+<canvas id="myChart" width="100" height="100"></canvas>
+</div>
 <script>
 
     //const dbParam = JSON.stringify({table:"customers",limit:20});
     let myObj = null;
-    let count=0;
     var sortObj = []
 
     function loadDocTable() {
@@ -164,6 +166,7 @@
         document.getElementById("start").innerHTML = text;
     }
 
+
     function checkRadio(){
         let counter = 0;
         for (let i = 0; i < questionList.length; i++) {
@@ -173,9 +176,31 @@
         }
 
         document.getElementById("start").innerHTML=counter;
+        makeChart(counter);
+    }
 
 
+    function makeChart(right){
+        let wrong = questionList.length-right;
 
+        var myChartObject = document.getElementById("myChart");
+        var chart = new Chart(myChartObject,{
+            type: 'pie',
+            data: {
+                labels: ["Richtig","Falsch"],
+                datasets: [{
+                    label: "Datensatz",
+                    data: [right,wrong],
+                    backgroundColor:[
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 99, 132)'
+                    ],
+                    hoverOffset: 4
+                }]
+
+            }
+
+        })
     }
 
 

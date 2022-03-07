@@ -3,33 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 
+<div class="header">
+    <h1 class="headh1">Learn Fast</h1>
+</div>
+<form class="whiteSpaceSmall"></form>
+
+<div class="form-center">
 <h1 th:object="${user}"></h1>
-<form th:action="@{/registering}" th:object="${user}" method="post">
+<form class="inputForm" th:action="@{/registering}" th:object="${user}" method="post">
 
     <div>
         <label>Email</label>
-        <input type="text" th:field="*{email}" placeholder="example@hotmail.com" >
+        <input class="inputField" type="text" th:field="*{email}" placeholder="example@hotmail.com" >
     </div>
     <div>
         <label>First Name</label>
-        <input type="text" th:field="*{firstName}" placeholder="Oliver" >
+        <input class="inputField" type="text" th:field="*{firstName}" placeholder="Oliver" >
     </div>
     <div>
         <label>Last Name</label>
-        <input type="text" th:field="*{lastName}" placeholder="Trump" >
+        <input class="inputField" type="text" th:field="*{lastName}" placeholder="Trump" >
     </div>
     <div>
         <label>Password</label>
-        <input type="text" th:field="*{password}" placeholder="*****" >
+        <input class="inputField" type="text" th:field="*{password}" placeholder="*****" >
     </div>
 
-    <input type="submit" value="Sign Up">
+    <input class="button" type="submit" value="Sign Up">
 </form>
+</div>
+<div class="whiteSpace"></div>
 
+<div class="footer">
+    <p>Verantwortlich: Delos Joel Herold, E-mail: delos.herold@stud.fra-uas.de</p>
+</div>
 
 </body>
 </html>

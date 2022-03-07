@@ -3,29 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<div class="header">
+    <h1 class="headh1">Learn Fast</h1>
+</div>
+<form class="whiteSpaceSmall"></form>
+
+<div class="form-center">
 
 <h1 th:object="${survey}"></h1>
-<form th:action="@{/add_survey}" th:object="${survey}" method="post">
+<form class="inputForm" th:action="@{/add_survey}" th:object="${survey}" method="post">
 
     <div>
-        <label>Email</label>
-        <input type="text" th:field="*{surveyName}" placeholder="example@hotmail.com" >
+        <label>Stack</label>
+        <input type="text" th:field="*{surveyName}" placeholder="Mathe" >
     </div>
     <div>
-        <label>First Name</label>
-        <input type="text" th:field="*{question}" placeholder="Oliver" >
+        <label>Frage</label>
+        <input type="text" th:field="*{question}" placeholder="2+2" >
     </div>
     <div>
-        <label>Last Name</label>
-        <input type="text" th:field="*{answer}" placeholder="Trump" >
+        <label>Antwort</label>
+        <input type="text" th:field="*{answer}" placeholder="4" >
     </div>
 
-    <input type="submit" value="Sign Up">
+    <input class="button" type="submit" value="submit">
 </form>
+</div>
 
+<div class="footer">
+    <p>Verantwortlich: Delos Joel Herold, E-mail: delos.herold@stud.fra-uas.de</p>
+</div>
 
 </body>
 </html>

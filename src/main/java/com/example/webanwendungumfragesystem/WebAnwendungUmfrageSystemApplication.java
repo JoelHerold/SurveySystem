@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 
 //um die Login Seite später aufzurufen
+
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 
 public class WebAnwendungUmfrageSystemApplication {

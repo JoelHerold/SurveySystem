@@ -5,34 +5,55 @@
     <title>Title</title>
     <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>User Dashboard</h1>
-<a th:href="@{/create_survey}" class="button">Umfrage Erstellen</a>
-<a th:href="@{/all_survey}" class="button">Meine Umfragen</a>
-<a th:href="@{/answer}" class="button">Beantworten</a>
-<h1 th:text="${test}"></h1>
 
-<button type="button" onclick="loadDocTable()">Meine Topics</button>
+<div class="header">
+    <h1 class="headh1">Learn Fast</h1>
+</div>
+<form class="whiteSpaceSmall"></form>
+
+
+<h1 class="headline">User Dashboard</h1>
+
+<div class="form-center">
+<a th:href="@{/create_survey}" class="button">Hinzufügen</a>
+
+<button class="button" type="button" onclick="loadDocTable()">Meine Fragen</button>
 <div id="demo">
 
 </div>
-<button  type="button" onclick="loadDocDrop()">Meine Stacks</button>
+<button class="button" type="button" onclick="loadDocDrop()">Let´s go</button>
+</div>
+
 <div id="drop" class="dropdown">
 
 
 </div>
 
-<div id='options'>
+<div class="option" id='options'>
 
 </div>
 
-<div id="start">
+<div class="answers" id="start">
 
 </div>
 <div style="width:60%;">
-<canvas id="myChart" width="100" height="100"></canvas>
+<canvas class="chart" id="myChart" width="100" height="100"></canvas>
 </div>
+
+
+<div id="again" class="startAgain">
+
+
+</div>
+
+
+
+
+
+
 <script>
 
     //const dbParam = JSON.stringify({table:"customers",limit:20});
@@ -64,21 +85,22 @@
         //xhttp.send("x=" + dbParam);
         count=0;
     }
+
     // noch implementieren
     function onDelete(y){
 
-        document.getElementById("demo").innerHTML = y;
+        //document.getElementById("demo").innerHTML = y;
 
     }
 
     function filltable(){
         //const myObj = JSON.parse(this.responseText);
-        let text = "<table border='5'>"
-        text += "<thead><td>" + "Thema" + "</td>" + "<td>" + "Frage" + "</td><td>" + "Antwort" + "</td></thead>"
+        let text = "<table border='5' class='down'>"
+        text += "<thead class='inside'><td>" + "Thema" + "</td>" + "<td>" + "Frage" + "</td><td>" + "Antwort" + "</td></thead>"
 
         for (let x in myObj) {
 
-            text += "<tr><td>" + myObj[x].surveyName + "</td>" + "<td>" + myObj[x].question + "</td>" + "<td>" + myObj[x].answer + "</td>" + ' <td><button onclick="onDelete(count)">Delete</button></td>' + "</tr>";
+            text += "<tr class='inside'><td>" + myObj[x].surveyName + "</td>" + "<td>" + myObj[x].question + "</td>" + "<td>" + myObj[x].answer + "</td>" + ' <td><button onclick="onDelete(count)">Delete</button></td>' + "</tr>";
             count++;
         }
         text += "</table>"
@@ -93,15 +115,15 @@
             sortObj.push(myObj[x].surveyName);
         }
         sortObj=_.uniq(sortObj);
-        let text ="<select id='dropMenu' name='drop' onchange='update()'>";
+        let text ="<select class='button' id='dropMenu' name='drop' onchange='update()'>";
         text +=  "<option onclick='update()'>Random</option>"
         for (let x in sortObj) {
             text +=  "<option onclick='update()'>"+sortObj[x]+"</option>"
         }
         text+="</select>"
-        text+= "<input type='text' id='value'>";
-        text+= "<input type='text' id='text'>"
-        text+= "<button  onClick='learnOptions()'>Optionen</button>"
+        text+= "<input class='hidden' type='text' id='value'>";
+        //text+= "<input type='text' id='text'>"
+        text+= "<button class='button' onClick='learnOptions()'>Optionen</button>"
 
 
         document.getElementById("drop").innerHTML = text;
@@ -115,7 +137,7 @@
         var option = select.options[select.selectedIndex];
 
         document.getElementById('value').value = option.value;
-        document.getElementById('text').value = option.text;
+        //document.getElementById('text').value = option.text;
         selected = option.value;
         //return option.value;
         //document.getElementById("start").innerText = selected;
@@ -132,10 +154,10 @@
         text+="<input type='radio' id='radio2'>"
         text+="<label for ='radio2'>twice</label>"
         text+="<br>"
-        text+="<input type='radio' id='radio3'>"
+        text+="<input  type='radio' id='radio3'>"
         text+="<label for ='radio3'>repeat</label>"
         text+="<br>"
-        text+= "<button  onClick='makeStackList()'>GO</button>"
+        text+= "<button class='button' onClick='makeStackList()'>GO</button>"
 
         document.getElementById('options').innerHTML = text;
     }
@@ -149,11 +171,13 @@
         }
        // document.getElementById("start").innerText = questionList;
         gameloop();
+
     }
 
     function gameloop(){
         let text = ""
-        text = "<table border='1'>"
+        text +="<div class='whiteSpaceLarge'></div>"
+        text += "<table border='1' >"
         text += "<thead><td>" + "Frage" + "</td>" + "<td>" + "Yes" + "</td></thead>"
         var counterId =0;
         for(let x in questionList){
@@ -162,7 +186,7 @@
         }
 
         text += "</table>"
-        text+= "<button onclick='checkRadio()'>GO</button>"
+        text+= "<button class='button' onclick='checkRadio()'>Submit</button>"
         document.getElementById("start").innerHTML = text;
     }
 
@@ -175,7 +199,7 @@
             }
         }
 
-        document.getElementById("start").innerHTML=counter;
+       // document.getElementById("start").innerHTML=counter;
         makeChart(counter);
     }
 
@@ -201,7 +225,20 @@
             }
 
         })
+
+        restart();
+
     }
+
+    function restart(){
+        let text = ""
+        //text+="<button class='button' type='reset' onClick='refreshPage()'>Again?!</button>"
+        text+="<form action=\"/user_dashboard\">\n" +
+            "    <input class='button' type=\"submit\" value=\"Again?!\" />\n" +
+            "</form>"
+        document.getElementById("again").innerHTML = text;
+    }
+
 
 
 

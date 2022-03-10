@@ -32,14 +32,14 @@ public class UserController {
         return "index";
     }
 
-    //Seite zum Registrieren
+    //Register page
     @GetMapping("/register")
     public String registerPage(Model model){
         model.addAttribute("user", new User());
         return "register_page";
     }
 
-    //User anlegen, Passwort verschlüsseln, auf vorhandene email prüfen
+    //create User, encrypt password, check if a User already exsits
     @PostMapping("/registering")
     public String registerUser(User user){
     //    if(userRepository.findExistingEmail(user.getEmail()).isEmpty()){
@@ -54,19 +54,19 @@ public class UserController {
     //   }
 
     }
-
+    //Mapping for the Dashboard
     @GetMapping("/user_dashboard")
     public String userDashboard (Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        model.addAttribute("test",currentPrincipalName);
+        String currentPrincipalName = authentication.getName(); //only for testing porpoise
+        model.addAttribute("test",currentPrincipalName); //only for testing porpoise
         model.addAttribute("survey",new Survey());
-        userService.setCurrentUser();
+        userService.setCurrentUser(); //only for testing porpoise
         return"user_dashboard";
     }
 
 
-
+    //only for testing porpoise
     @GetMapping("/test")
     String test(Model model){
         model.addAttribute("something","testtttt");

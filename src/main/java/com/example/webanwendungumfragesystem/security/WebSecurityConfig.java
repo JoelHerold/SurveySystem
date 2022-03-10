@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
+    } //Password Encoder
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
@@ -42,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
+    //Configuration of the allowed Mappings after Login
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers("/user_dashboard").authenticated().anyRequest().permitAll().and()

@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
+
+
 public class UserSecurityService implements UserDetailsService {
 
     @Autowired
@@ -17,6 +19,8 @@ public class UserSecurityService implements UserDetailsService {
 
     private User user;
 
+
+    //Load User by email
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);

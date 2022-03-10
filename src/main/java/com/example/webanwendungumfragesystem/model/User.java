@@ -17,6 +17,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
+    //Model for User
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -33,6 +34,9 @@ public class User {
     @Column(name="lastName",nullable = false)
     private String lastName;
 /*
+
+
+    //ignore
     @OneToMany
     @CollectionTable(name = "active_surveys ", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "actSurv", nullable = false)

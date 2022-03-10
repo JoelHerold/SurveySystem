@@ -29,89 +29,29 @@ public class SurveyController {
     @Autowired
     SurveyRepository surveyRepository;
 
-
-
-
+//add a new survey and save in Database
     @PostMapping("/add_survey")
-    public String addSurvey(Survey survey){
+    public String addSurvey(Survey survey) {
         surveyRepository.save(survey);
         return "user_dashboard";
     }
+//create a new Survey
     @GetMapping("/create_survey")
-    public String registerPage(Model model){
+    public String registerPage(Model model) {
         model.addAttribute("survey", new Survey());
         return "create_survey";
     }
 
+    //return all Questions as a List of Objects in Json
     @GetMapping(value = "/all_survey", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Survey> showAllSurveys(Model model){
-        User currentUser = userRepository.findByEmail( userService.getCurrentUser());
-        List<Survey> allSurveys =surveyRepository.findAll();
+    public List<Survey> showAllSurveys(Model model) {
+        User currentUser = userRepository.findByEmail(userService.getCurrentUser());
+        List<Survey> allSurveys = surveyRepository.findAll();
         //model.addAttribute("surveys",allSurveys);
         //model.addAttribute("user", currentUser);
 
 
         return allSurveys;
     }
- /*
-
-    @PostMapping ("/creating_survey")
-    public String createSurvey(Survey survey){
-        surveyRepository.save(survey);
-        userService.getCurrentUser();
-        // alle User einfügen immer wenn eine Umfrag gestellt wird bekommen alle user diese damit ich später in survey Controller darauf zugreifen kann
-        List<User> allUsers = userRepository.findAll();
-       //for()
-        return "user_dashboard";
-    }
-
-
-
-    @GetMapping(value = "/allSurveys", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<Survey> showAllSurveys(Model model){
-        User currentUser = userRepository.findByEmail( answerService.getCurrentUser());
-        List<Survey> allSurveys =surveyRepository.findAll();
-        model.addAttribute("surveys",allSurveys);
-        model.addAttribute("user", currentUser);
-
-
-        return allSurveys;
-    }
-
-    @GetMapping("/allSurvey")
-    public String testt(){
-        return"/allSurvey";
-    }
-
-
-
-
-/*
-  @GetMapping("/addSurvey")
-  public String addSurvey(Model model){
-        String id ="";
-        model.addAttribute("surveyId",id);
-        return "addSurvey";
-  }
-
-
-    @PostMapping("/addingSurvey")
-    public String addingSurvey(String sourceText){
-        long surveyId = Long.parseLong(sourceText);
-        User currentUser = userRepository.findByEmail(answerService.getCurrentUser());
-        currentUser.addSurvey(surveyRepository.getById(surveyId));
-        return "user_dashboard";
-    }
-
-    */
-    /*
-    @RequestMapping("/addingSurvey")
-    public String process(Model model, @RequestParam String surveyId) {
-    return "user_dashboard";
-}
-*/
-
-
 }

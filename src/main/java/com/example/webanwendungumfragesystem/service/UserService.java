@@ -8,6 +8,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+
+//to get the current User. In my Case only for testing. Would be needed if the Application has more User handling. Was
+//needed in an early Version
 @Service
 public class UserService {
 

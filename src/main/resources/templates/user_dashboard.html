@@ -56,10 +56,11 @@
 
 <script>
 
-    //const dbParam = JSON.stringify({table:"customers",limit:20});
+
     let myObj = null;
     var sortObj = []
 
+    //ajax for "Meine Fragen"
     function loadDocTable() {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
@@ -72,7 +73,7 @@
         //xhttp.send("x=" + dbParam);
         count=0;
     }
-
+    //Ajax for the DropDown Menu before the start
     function loadDocDrop() {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
@@ -86,13 +87,14 @@
         count=0;
     }
 
-    // noch implementieren
+    // comming soon :)
     function onDelete(y){
 
         //document.getElementById("demo").innerHTML = y;
 
     }
 
+    //FIll the Table "Meine Fragen" dynamical. Use the Json Array ob Objects
     function filltable(){
         //const myObj = JSON.parse(this.responseText);
         let text = "<table border='5' class='down'>"
@@ -108,6 +110,7 @@
 
     }
 
+    //fill the DropDown Menu dynamical
     function fillDropDown(){
 
 
@@ -132,6 +135,7 @@
 
     var selected ="";
 
+    //get the selected Stack from the DropDwon Menu
     function update() {
         var select = document.getElementById('dropMenu');
         var option = select.options[select.selectedIndex];
@@ -145,6 +149,7 @@
 
    // update();
 
+    //is only a placeholder for the future has no function
     function learnOptions(){
         let text ="";
 
@@ -162,6 +167,8 @@
         document.getElementById('options').innerHTML = text;
     }
     var questionList=[];
+
+    //List with the selected Questions
     function makeStackList(){
 
         for(let x in myObj){
@@ -170,10 +177,11 @@
             }
         }
        // document.getElementById("start").innerText = questionList;
-        gameloop();
+        gameloop(); // start the "game"
 
     }
 
+    //print selected Questions
     function gameloop(){
         let text = ""
         text +="<div class='whiteSpaceLarge'></div>"
@@ -190,7 +198,7 @@
         document.getElementById("start").innerHTML = text;
     }
 
-
+    //checks the checked radio buttons and counts them up for the chart
     function checkRadio(){
         let counter = 0;
         for (let i = 0; i < questionList.length; i++) {
@@ -203,7 +211,7 @@
         makeChart(counter);
     }
 
-
+    //Chart Js takes the number of checked and makes a pie diagram
     function makeChart(right){
         let wrong = questionList.length-right;
 
@@ -230,6 +238,7 @@
 
     }
 
+    //refresh the side to restart again
     function restart(){
         let text = ""
         //text+="<button class='button' type='reset' onClick='refreshPage()'>Again?!</button>"
@@ -251,177 +260,10 @@
 
 </script>
 
-<!--
-
-klappt mit dropdown und filter
-
- <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="http://underscorejs.org/underscore-min.js"></script>
-</head>
-<body>
-<h1>User Dashboard</h1>
-<a th:href="@{/create_survey}" class="button">Umfrage Erstellen</a>
-<a th:href="@{/all_survey}" class="button">Meine Umfragen</a>
-<a th:href="@{/answer}" class="button">Beantworten</a>
-<h1 th:text="${test}"></h1>
-
-<button type="button" onclick="loadDoc()">Meine Topics</button>
-<div id="demo">
-
-</div>
-
-<div id="drop" class="dropdown">
-   <select name="drop" onclick="fillDropDown()">
-
-   </select>
-</div>
-
-
-
-<script>
-
-    //const dbParam = JSON.stringify({table:"customers",limit:20});
-    let myObj = null;
-    let count=0;
-    var sortObj = []
-    function loadDoc() {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function () {
-            myObj = JSON.parse(this.responseText);
-            //const myObj = JSON.parse(this.responseText);
-            let text = "<table border='5'>"
-            text += "<thead><td>" + "Thema" + "</td>" + "<td>" + "Frage" + "</td><td>" + "Antwort" + "</td></thead>"
-
-            for (let x in myObj) {
-
-                text += "<tr><td>" + myObj[x].surveyName + "</td>" + "<td>" + myObj[x].question + "</td>" + "<td>" + myObj[x].answer + "</td>" + ' <td><button onclick="onDelete(count)">Delete</button></td>' + "</tr>";
-            count++;
-            }
-            text += "</table>"
-            document.getElementById("demo").innerHTML = text;
-        }
-        xhttp.open("GET", "/all_survey");
-        xhttp.send();
-        //xhttp.send("x=" + dbParam);
-        count=0;
-    }
-    // noch implementieren
-    function onDelete(y){
-
-        document.getElementById("demo").innerHTML = y;
-
-    }
-
-    function fillDropDown(){
-
-
-        for(let x in myObj){
-            sortObj.push(myObj[x].surveyName);
-        }
-        sortObj=_.uniq(sortObj);
-        let text ="";
 
 
 
 
-
-        for (let x in sortObj) {
-            text +=  "<option>"+sortObj[x]+"</option>"
-        }
-        //text+="</select>"
-
-        document.getElementById("drop").innerHTML = text;
-
-    }
-
-
-</script>
-  -->
-
-    <!--
-    klappt
-    var myObj
-    function loadDoc() {
-        var data;
-        const xhttp = new XMLHttpRequest();
-
-        xhttp.onload = function() {
-            data = this.responseText;
-
-
-            myObj = JSON.parse(this.responseText);
-            document.getElementById("demo").innerHTML = myObj[0].question;
-
-        }
-
-        xhttp.open("GET", "/all_survey", true);
-        xhttp.send();
-    }
-
-   -->
-
-
-
-
-</script>
-
-
-<!--
-<script>
-    function sendSurvey(){
-
-        var name = $('#name').val();
-        var question = $('#question').val();
-$.ajax({
-    type: 'POST',
-    url: '/addSurvey',
-    data: { name: name, question: question },
-    success: function(result) {
-
-    }
-})};</script>
-
-
-
-
-
-
-<form action="@{/addSurvey}" th:object="${survey}" method="post">
-<div>
-    <label>Umfrage Namen</label>
-    <input type="text" th:field="*{surveyName}" placeholder="type in the Survey name" >
-</div>
-<div>
-    <label>Umfrage Namen</label>
-    <input type="text" th:field="*{question}" placeholder="type in your question" >
-</div>
-<div>
-    <label>Umfrage Namen</label>
-    <input type="text" th:field="*{answer}" placeholder="type in your answer" >
-</div>
-    <div id="demo">
-        <h2>Let AJAX change this text</h2>
-        <button type="button" onclick="loadDoc()">Change Content</button>
-    </div>
-</form>
-
-
-
-<script>
-    function loadDoc() {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            document.getElementById("demo").innerHTML = this.responseText;
-        }
-        xhttp.open("GET", "/addSurvey", true);
-        xhttp.send();
-    }
-</script>
--->
 
 </body>
 </html>

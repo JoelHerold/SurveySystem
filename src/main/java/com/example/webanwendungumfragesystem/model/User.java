@@ -1,15 +1,10 @@
 package com.example.webanwendungumfragesystem.model;
 
 
-
-
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Setter
 @Getter
